@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Family Downloader</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body { font-family: sans-serif; background: #121212; color: white; text-align: center; padding: 20px; }
+        input { width: 90%; max-width: 400px; padding: 12px; border-radius: 8px; border: none; margin: 10px 0; background: #222; color: white; font-size: 16px; }
+        button { padding: 12px 24px; background: #e91e63; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 16px; }
+        #msg { margin-top: 15px; font-weight: bold; color: #ffeb3b; }
+    </style>
+</head>
+<body>
+    <h2>🎥 Social Media Downloader</h2>
+    <p>ইনস্টাগ্রাম, ফেসবুক বা ইউটিউবের লিঙ্ক নিচে দিন:</p>
+    
+    <form action="/download" method="POST" onsubmit="showMsg()">
+        <input type="text" name="url" id="url" placeholder="এখানে লিঙ্ক পেস্ট করুন..." required>
+        <br>
+        <button type="submit">Download</button>
+    </form>
+    <p id="msg"></p>
+
+    <script>
+        function showMsg() {
+            document.getElementById('msg').innerText = "ডাউনলোড ও প্রসেসিং শুরু হচ্ছে... ব্রাউজারের নিচের দিকে ডাউনলোড প্রোগ্রেস খেয়াল রাখুন।";
+        }
+    </script>
+</body>
+</html>
