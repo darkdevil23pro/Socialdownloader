@@ -4,8 +4,8 @@ import os
 
 app = Flask(__name__)
 
-# সাময়িকভাবে ফাইল রাখার ফোল্ডার
-DOWNLOAD_DIR = '/sdcard/Download/temp_downloads'
+# অনলাইন সার্ভারের উপযোগী টেম্পোরারি ফোল্ডার
+DOWNLOAD_DIR = os.path.join(os.getcwd(), 'temp_downloads')
 os.makedirs(DOWNLOAD_DIR, exist_ok=True)
 
 @app.route('/')
@@ -17,7 +17,7 @@ def download():
     url = request.form.get('url')
     
     ydl_opts = {
-        'outtmpl': f'{DOWNLOAD_DIR}/%(title)s.%(ext)s',
+        'outtmpl': os.path.join(DOWNLOAD_DIR, '%(title)s.%(ext)s'),
         'format': 'best',
         'restrictfilenames': True
     }
@@ -27,12 +27,9 @@ def download():
             info = ydl.extract_info(url, download=True)
             filename = ydl.prepare_filename(info)
         
-        # ফাইলটি সরাসরি ইউজারের নিজের ফোনের ক্রোম ব্রাউজারে ট্রান্সফার করা
         return send_file(filename, as_attachment=True)
     except Exception as e:
         return f"Error: {str(e)}"
 
 if __name__ == '__main__':
-    if not os.path.exists('/sdcard/Download'):
-        os.system('termux-setup-storage')
     app.run(host='0.0.0.0', port=5000)
